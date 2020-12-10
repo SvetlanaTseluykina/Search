@@ -28,12 +28,8 @@ if not dtm1:
 
     query_body = {
         "query": {
-            "bool": {
-                "must": {
-                    "match": {
+                "match": {
                     "title": srch
-                    }
-                }
             }
         }
     }

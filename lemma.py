@@ -13,8 +13,22 @@ my_settings = {
            "stopwords": "_russian_"
         },
          "ru_stemmer": {
-           "type": "stemmer",
-           "language": "russian"
+           "type": "snowball",
+           "language": "Russian"
+         },
+         "synonym_filter": {
+             "type": "synonym_graph",
+             "synonyms": ["приморье, владивосток",
+                         "мост, строение, сооружение",
+                         "дом, здание, постройка",
+                         "снег, мороз, лёд, дождь, погода",
+                         "житель, жительница, горожанин, человек",
+                         "администрация, управление, власть",
+                         "трасса, дорога, шоссе",
+                         "автомобиль, машина",
+                          "новый год, праздник, рождество, каникулы, отдых",
+                          "пожар, огонь, дым"]
+
          }
        },
        "analyzer": {
@@ -24,9 +38,10 @@ my_settings = {
            ],
           "tokenizer": "standard",
            "filter": [
-             "lowercase",
-             "ru_stop",
-             "ru_stemmer"
+               "synonym_filter",
+               "lowercase",
+               "ru_stop",
+               "stemmer"
            ]
          }
        }
@@ -35,9 +50,6 @@ my_settings = {
    "mappings": {
      "post": {
        "properties": {
-         "parent_url": {
-             "type": "string",
-         },
         "url": {
              "type": "string",
          },
@@ -49,7 +61,7 @@ my_settings = {
         },
         "title": {
            "type": "string",
-           "index": "not_analyzed"
+           "analyzer": "default"
          }
        }
      }
